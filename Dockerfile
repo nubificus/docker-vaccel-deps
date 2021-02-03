@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
 
 ENV RUSTUP_HOME=/opt/rust CARGO_HOME=/opt/cargo PATH=/opt/cargo/bin:$PATH
 RUN wget --https-only --secure-protocol=TLSv1_2 -O- https://sh.rustup.rs | sh /dev/stdin -y
+RUN chmod a+w /opt/cargo
+RUN chmod a+w /opt/rust
 
 RUN git clone https://${TOKEN}:x-oauth-basic@github.com/cloudkernels/virtio-accel.git && \
 	cd virtio-accel && \
