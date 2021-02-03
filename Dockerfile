@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     clang libclang-dev llvm-dev
 
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-RUN echo "source $HOME/.cargo/env" >> $HOME/.bashrc
+ENV RUSTUP_HOME=/opt/rust CARGO_HOME=/opt/cargo PATH=/opt/cargo/bin:$PATH
+RUN wget --https-only --secure-protocol=TLSv1_2 -O- https://sh.rustup.rs | sh /dev/stdin -y
 
 RUN git clone https://${TOKEN}:x-oauth-basic@github.com/cloudkernels/virtio-accel.git && \
 	cd virtio-accel && \
