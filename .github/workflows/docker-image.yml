@@ -39,6 +39,7 @@ jobs:
 
       - name: Create manifest
         run: |
+          docker manifest rm nubificus/vaccel-deps:latest
           docker manifest create nubificus/vaccel-deps:latest \
             --amend nubificus/vaccel-deps:x86_64 \
             --amend nubificus/vaccel-deps:aarch64
