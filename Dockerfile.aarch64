@@ -1,4 +1,4 @@
-FROM nubificus/jetson-inference:arm64
+FROM nubificus/jetson-inference:latest
 
 ARG TOKEN
 
