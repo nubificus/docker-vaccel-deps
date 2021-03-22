@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -26,3 +26,20 @@ jobs:
         buildargs: TOKEN=${{ secrets.NBFC_BUILDER_TOKEN }}
         tags: ${{ matrix.arch }}
         dockerfile: Dockerfile.${{ matrix.arch }}
+
+  create_manifest:
+    runs-on: [self-hosted, aarch64]
+    needs: build
+
+    steps:
+      - uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Create manifest
+        run: |
+          docker manifest create nubificus/vaccel-deps:latest \
+            --amend nubificus/vaccel-deps:x86_64 \
+            --amend nubificus/vaccel-deps:aarch64
+          docker manifest push nubificus/vaccel-deps:latest
