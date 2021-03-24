@@ -4,7 +4,7 @@ ARG TOKEN
 
 RUN apt-get update && apt-get install -y \
     curl \
-    clang libclang-dev llvm-dev libfdt-dev && \
+    clang libclang-dev llvm-dev libfdt-dev ssh iproute2 iputils-ping  && \
     rm -rf /var/lib/apt/lists/*
 
 ENV RUSTUP_HOME=/opt/rust CARGO_HOME=/opt/cargo PATH=/opt/cargo/bin:$PATH
