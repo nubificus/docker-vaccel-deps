@@ -38,6 +38,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Create manifest
+        shell: bash {0}
         run: |
           docker manifest rm nubificus/vaccel-deps:latest
           docker manifest create nubificus/vaccel-deps:latest \
